@@ -327,7 +327,7 @@ body {
     display:flex;
     flex-wrap: wrap;
     gap: 1.5rem;
-
+    margin-top: 15px;
 }
 
 .products .box-container .box{
@@ -1085,4 +1085,35 @@ button:hover {
     width: 100%; 
     border-radius: 5px; 
     font-weight: bold; 
+}
+
+.filter-bar {
+    display: flex;
+    border: 1px solid #e84393;
+    border-radius: 30px;
+    overflow: hidden;
+    
+}
+
+.filter-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: #e84393;
+    font-weight: 500;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.filter-btn:hover {
+    background-color: #ffebf0;
+}
+
+.filter-btn.active {
+    background-color: #e84393;
+    color: #fff;
+    font-weight: bold;
 }

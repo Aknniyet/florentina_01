@@ -149,7 +149,7 @@
                 } 
             }; 
         </script>
-        
+
           <!-- Button changing theme -->
           <script>
               const themeToggleButton = document.getElementById('themeToggle');
@@ -215,14 +215,50 @@
           </nav>
           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
           <!-- header section ends -->
+
+    
     
     <section class="products" id="products">
       <h1 class="heading">latest <span> products</span></h1>
+
+      <div class="filter-bar">
+        <button onclick="applyFilter('all')" class="filter-btn active">All</button>
+        <button onclick="applyFilter('bouquets')" class="filter-btn">Bouquets</button>
+        <button onclick="applyFilter('combo')" class="filter-btn">Combo</button>
+        <button onclick="applyFilter('fall_bouquets')" class="filter-btn">Roses</button>
+        <button onclick="applyFilter('sweets')" class="filter-btn">Pions</button>
+        <button onclick="applyFilter('cards')" class="filter-btn">Hydrangeas</button>
+    </div>
+
+    <script>
+       function applyFilter(filter) {
+    const buttons = document.querySelectorAll('.filter-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    
+    const activeButton = Array.from(buttons).find(btn => btn.getAttribute('onclick').includes(filter));
+    if (activeButton) activeButton.classList.add('active');
+    
+    // Здесь фильтруем продукты на основе выбранного фильтра
+    // Пример: filterProducts(filter);
+    
+    // Сохраняем выбранный фильтр в Local Storage
+    localStorage.setItem('selectedFilter', filter);
+}
+
+// Восстанавливаем выбранный фильтр при загрузке страницы
+document.addEventListener('DOMContentLoaded', () => {
+    const savedFilter = localStorage.getItem('selectedFilter') || 'all';
+    applyFilter(savedFilter);
+});
+
+    </script>
     
         <div class="box-container" id="box-container">
             <!-- Products will be added dynamically through JavaScript -->
         </div>
     </section>
+
+    
     
     <script>
         // Array with product data
