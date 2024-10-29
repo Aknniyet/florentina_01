@@ -44,14 +44,18 @@
                       </li>
                   </ul>
       
-                  <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                      <li class="nav-item dropdown">
-                          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"><i class="far fa-user"></i></a>
-                          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                              <li><a class="dropdown-item" href="#">sign up</a></li>
-                              <li><a class="dropdown-item" href="#">login</a></li>
-                          </ul>
-                      </li>
+                  <ul class="navbar-nav ms-auto mb-2 mb-lg-0"> 
+                 
+                    <ul class="navbar-nav"> 
+                        <li class="nav-item dropdown"> 
+                            <a class="nav-link dropdown-toggle" href="#" onclick="toggleDropdown(event)"><i class="far fa-user"></i></a> 
+                            <ul id="userDropdown" class="dropdown-menu"> 
+                                <li><a class="dropdown-item" href="#" onclick="openModal('loginModal')">Login</a></li> 
+                                <li><a class="dropdown-item" href="#" onclick="openModal('signUpModal')">Sign Up</a></li> 
+                            </ul> 
+                        </li> 
+                    </ul>
+
                       <li class="nav-item">
                           <a class="nav-link" href="#"><i class="fas fa-shopping-cart"></i></a>
                       </li>
@@ -62,6 +66,90 @@
               </div>
           </div>
       
+             <!-- Modal for Login --> 
+    <div id="loginModal" class="modal"> 
+        <div class="modal-content"> 
+            <span class="close" onclick="closeModal('loginModal')">&times;</span> 
+            <h3 class="text-center">Login</h3> 
+            <input type="text" id="loginUsername" placeholder="Username" class="form-control mb-3"> 
+            <input type="password" id="loginPassword" placeholder="Password" class="form-control mb-3"> 
+            <button onclick="login()" class="btn btn-primary">Login</button> 
+        </div> 
+    </div> 
+     
+    <!-- Modal for Sign Up --> 
+    <div id="signUpModal" class="modal"> 
+        <div class="modal-content"> 
+            <span class="close" onclick="closeModal('signUpModal')">&times;</span> 
+            <h3 class="text-center">Sign Up</h3> 
+            <input type="text" id="signUpUsername" placeholder="Username" class="form-control mb-3"> 
+            <input type="password" id="signUpPassword" placeholder="Password" class="form-control mb-3"> 
+            <button onclick="signUp()" class="btn btn-primary">Sign Up</button> 
+        </div> 
+    </div>
+    <script> 
+        // Toggle dropdown visibility 
+        function toggleDropdown(event) { 
+            event.preventDefault(); 
+            const dropdown = document.getElementById("userDropdown"); 
+            dropdown.style.display = dropdown.style.display === "none" || dropdown.style.display === "" ? "block" : "none"; 
+        } 
+     
+        // Open modal 
+        function openModal(modalId) { 
+            document.getElementById(modalId).style.display = "flex"; 
+        } 
+     
+        // Close modal 
+        function closeModal(modalId) { 
+            document.getElementById(modalId).style.display = "none"; 
+        } 
+     
+        // Sign up function 
+        function signUp() { 
+            const username = document.getElementById("signUpUsername").value; 
+            const password = document.getElementById("signUpPassword").value; 
+     
+            if (username && password) { 
+                // Сохраняем пользователя в localStorage 
+                localStorage.setItem("username", username); 
+                localStorage.setItem("password", password); 
+                alert("Registration successful!"); 
+                closeModal('signUpModal'); 
+            } else { 
+                alert("Please fill in all fields."); 
+            } 
+        }
+        // Login function 
+        function login() { 
+                const username = document.getElementById("loginUsername").value; 
+                const password = document.getElementById("loginPassword").value; 
+                 
+                // Получаем данные из localStorage 
+                const storedUsername = localStorage.getItem("username"); 
+                const storedPassword = localStorage.getItem("password"); 
+         
+                console.log("Stored Username:", storedUsername);  // Проверка сохраненного имени пользователя 
+                console.log("Stored Password:", storedPassword);  // Проверка сохраненного пароля 
+         
+                // Проверка введенных данных 
+                if (username === storedUsername && password === storedPassword) { 
+                    alert("Welcome!"); 
+                    closeModal('loginModal'); 
+                } else { 
+                    alert("Invalid username or password."); 
+                } 
+            } 
+         
+            // Close dropdown menu when clicking outside 
+            window.onclick = function(event) { 
+                const dropdown = document.getElementById("userDropdown"); 
+                if (event.target.closest(".nav-item.dropdown") === null) { 
+                    dropdown.style.display = "none"; 
+                } 
+            }; 
+        </script>
+        
           <!-- Button changing theme -->
           <script>
               const themeToggleButton = document.getElementById('themeToggle');
