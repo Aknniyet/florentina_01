@@ -223,35 +223,13 @@
 
       <div class="filter-bar">
         <button onclick="applyFilter('all')" class="filter-btn active">All</button>
-        <button onclick="applyFilter('bouquets')" class="filter-btn">Bouquets</button>
+        <!-- <button onclick="applyFilter('bouquets')" class="filter-btn">Bouquets</button> -->
         <button onclick="applyFilter('combo')" class="filter-btn">Combo</button>
-        <button onclick="applyFilter('fall_bouquets')" class="filter-btn">Roses</button>
-        <button onclick="applyFilter('sweets')" class="filter-btn">Pions</button>
-        <button onclick="applyFilter('cards')" class="filter-btn">Hydrangeas</button>
+        <button onclick="applyFilter('roses')" class="filter-btn">Roses</button>
+        <button onclick="applyFilter('pions')" class="filter-btn">Pions</button>
+        <button onclick="applyFilter('hydrangeas')" class="filter-btn">Hydrangeas</button>
     </div>
 
-    <script>
-       function applyFilter(filter) {
-    const buttons = document.querySelectorAll('.filter-btn');
-    buttons.forEach(btn => btn.classList.remove('active'));
-    
-    const activeButton = Array.from(buttons).find(btn => btn.getAttribute('onclick').includes(filter));
-    if (activeButton) activeButton.classList.add('active');
-    
-    // Здесь фильтруем продукты на основе выбранного фильтра
-    // Пример: filterProducts(filter);
-    
-    // Сохраняем выбранный фильтр в Local Storage
-    localStorage.setItem('selectedFilter', filter);
-}
-
-// Восстанавливаем выбранный фильтр при загрузке страницы
-document.addEventListener('DOMContentLoaded', () => {
-    const savedFilter = localStorage.getItem('selectedFilter') || 'all';
-    applyFilter(savedFilter);
-});
-
-    </script>
     
         <div class="box-container" id="box-container">
             <!-- Products will be added dynamically through JavaScript -->
@@ -264,69 +242,114 @@ document.addEventListener('DOMContentLoaded', () => {
         // Array with product data
         const products = [
             {
-                name: 'Flower Pot 1',
+                name: 'Hydrangea Rose Harmony',
                 price: 12.99,
                 discount: '-10%',
-                imgSrc: 'images/f1.jpg'
+                imgSrc: 'images/f1.jpg',
+                category: 'combo'
             },
             {
-                name: 'Flower Pot 2',
-                price: 12.99,
+                name: 'Rose Romance',
+                price: 14.99,
                 discount: '-15%',
                 imgSrc: 'images/f2.jpg'
             },
             {
-                name: 'Flower Pot 3',
-                price: 12.99,
+                name: 'Hydrangea Dreams',
+                price: 13.99,
                 discount: '-5%',
-                imgSrc: 'images/f3.jpg'
+                imgSrc: 'images/f7.jpg',
+                category: 'hydrangeas'
             },
             {
-                name: 'Flower Pot 4',
-                price: 12.99,
+                name: 'Spray Rose Elegance',
+                price: 10.99,
+                discount: '',
+                imgSrc: 'images/f3.jpg',
+                category: 'roses'
+            },
+            {
+                name: 'Ivory Dreams',
+                price: 9.99,
                 discount: '-20%',
                 imgSrc: 'images/IMG_2812.jpg'
             },
             {
-                name: 'Flower Pot 5',
-                price: 12.99,
+                name: 'Romantic Blooms',
+                price: 11.99,
                 discount: '-15%',
-                imgSrc: 'images/IMG_2824.jpg'
+                imgSrc: 'images/IMG_2824.jpg',
+                category: 'combo'
             },
             {
-                name: 'Flower Pot 6',
-                price: 12.99,
+                name: '"Pure White Roses',
+                price: 10.99,
                 discount: '-5%',
-                imgSrc: 'images/f6.jpg'
-            }
+                imgSrc: 'images/f6.jpg',
+                category: 'roses'
+            },
+            {
+                name: 'Hydrangea Delight',
+                price: 15.99,
+                discount: ' ',
+                imgSrc: 'images/f8.jpg',
+                category: 'hydrangeas'
+            },
+            {
+                name: 'Peony Perfection',
+                price: 12.99,
+                imgSrc: 'images/f9.jpg',
+                discount: '',
+                category: 'pions'
+            },
         ];
     
-        // Get the container for products
-        const boxContainer = document.getElementById('box-container');
-    
-        // Display products
-        products.forEach(product => {
-            const box = document.createElement('div');
-            box.classList.add('box');
-    
-            box.innerHTML = `
-                <span class="discount">${product.discount}</span>
-                <div class="image">
-                    <img src="${product.imgSrc}" alt="${product.name}">
-                    <div class="icons">
-                        <a href="#" class="fas fa-heart"></a>
-                        <a href="#" class="cart-btn">add to cart</a>
-                        <a href="#" class="fas fa-share"></a>
-                    </div>
+        const boxContainer = document.querySelector('.box-container');
+
+function applyFilter(filter) {
+    const buttons = document.querySelectorAll('.filter-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+
+    const activeButton = Array.from(buttons).find(btn => btn.getAttribute('onclick').includes(filter));
+    if (activeButton) activeButton.classList.add('active');
+
+    // Очистите контейнер с продуктами
+    boxContainer.innerHTML = '';
+
+    // Фильтруйте продукты на основе выбранной категории
+    const filteredProducts = filter === 'all' ? products : products.filter(product => product.category === filter);
+
+    // Отобразите отфильтрованные продукты
+    filteredProducts.forEach(product => {
+        const box = document.createElement('div');
+        box.classList.add('box');
+        box.innerHTML = `
+            <span class="discount">${product.discount}</span>
+            <div class="image">
+                <img src="${product.imgSrc}" alt="${product.name}">
+                <div class="icons">
+                    <a href="#" class="fas fa-heart"></a>
+                    <a href="#" class="cart-btn">add to cart</a>
+                    <a href="#" class="fas fa-share"></a>
                 </div>
-                <div class="content">
-                    <h3>${product.name}</h3>
-                    <div class="price">$${product.price} <span>$15.99</span></div>
-                </div>
-            `;
-    
-            boxContainer.appendChild(box);
-        });
+            </div>
+            <div class="content">
+                <h3>${product.name}</h3>
+                <div class="price">$${product.price} <span></span></div>
+            </div>
+        `;
+        boxContainer.appendChild(box);
+    });
+
+    // Сохраняем выбранный фильтр в Local Storage
+    localStorage.setItem('selectedFilter', filter);
+}
+
+// При загрузке страницы применяем сохранённый фильтр из Local Storage
+window.addEventListener('load', () => {
+    const savedFilter = localStorage.getItem('selectedFilter') || 'all';
+    applyFilter(savedFilter);
+});
     </script>
 
     
