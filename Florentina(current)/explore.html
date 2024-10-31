@@ -151,58 +151,45 @@
       
           <!-- Button changing theme -->
           <script>
-              const themeToggleButton = document.getElementById('themeToggle');
-              const body = document.body;
-              const navbar = document.getElementById('navbar');
-      
-              themeToggleButton.addEventListener('click', () => {
-                  if (body.classList.contains('light-theme')) {
-                      body.classList.remove('light-theme');
-                      body.classList.add('dark-theme');
-                      navbar.classList.remove('navbar-light');
-                      navbar.classList.add('navbar-dark');
-                      themeToggleButton.innerHTML = 'Light Mode';
-                  } else {
-                      body.classList.remove('dark-theme');
-                      body.classList.add('light-theme');
-                      navbar.classList.remove('navbar-dark');
-                      navbar.classList.add('navbar-light');
-                      themeToggleButton.innerHTML = 'Dark Mode';
-                  }
-              });
-      
-              // Keyboard Navigation
-              const navItems = document.querySelectorAll('.top-menu .nav-link');
-              let currentIndex = 0;
-      
-              // Function to set focus on the current nav item
-              function setFocus(index) {
-                  navItems[index].focus();
-                  navItems[index].style.border = "2px solid blue";
-              }
-      
-              // Remove focus style when the item loses focus
-              function removeFocus(index) {
-                  navItems[index].style.border = "none";
-              }
-      
-              setFocus(currentIndex);
-      
-              document.addEventListener('keydown', function(event) {
-                  if (event.key === "ArrowRight") {
-                      // Move to the next item if right arrow is pressed
-                      removeFocus(currentIndex);
-                      currentIndex = (currentIndex + 1) % navItems.length; 
-                      setFocus(currentIndex);
-                      event.preventDefault(); 
-                  } else if (event.key === "ArrowLeft") {
-                      removeFocus(currentIndex);
-                      currentIndex = (currentIndex - 1 + navItems.length) % navItems.length; 
-                      setFocus(currentIndex);
-                      event.preventDefault(); 
-                  }
-              });
-          </script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const themeToggleButton = document.getElementById('themeToggle');
+                const body = document.body;
+                const navbar = document.getElementById('navbar');
+        
+                // Check for stored theme in localStorage
+                const storedTheme = localStorage.getItem('theme');
+        
+                if (storedTheme) {
+                    // Apply stored theme
+                    body.classList.add(storedTheme);
+                    navbar.classList.add(storedTheme === 'dark-theme' ? 'navbar-dark' : 'navbar-light');
+                    themeToggleButton.innerHTML = storedTheme === 'dark-theme' ? 'Light Mode' : 'Dark Mode';
+                } else {
+                    // Default to light theme if no stored preference
+                    body.classList.add('light-theme');
+                    navbar.classList.add('navbar-light');
+                    themeToggleButton.innerHTML = 'Dark Mode';
+                }
+        
+                // Theme toggle button click event
+                themeToggleButton.addEventListener('click', () => {
+                    if (body.classList.contains('light-theme')) {
+                        // Switch to dark theme
+                        body.classList.replace('light-theme', 'dark-theme');
+                        navbar.classList.replace('navbar-light', 'navbar-dark');
+                        themeToggleButton.innerHTML = 'Light Mode';
+                        localStorage.setItem('theme', 'dark-theme');  // Save to localStorage
+                    } else {
+                        // Switch to light theme
+                        body.classList.replace('dark-theme', 'light-theme');
+                        navbar.classList.replace('navbar-dark', 'navbar-light');
+                        themeToggleButton.innerHTML = 'Dark Mode';
+                        localStorage.setItem('theme', 'light-theme'); // Save to localStorage
+                    }
+                });
+            });
+        </script>
+        
           <!-- Button changing theme -->
       </nav>
       

@@ -152,58 +152,45 @@
 
           <!-- Button changing theme -->
           <script>
-              const themeToggleButton = document.getElementById('themeToggle');
-              const body = document.body;
-              const navbar = document.getElementById('navbar');
-      
-              themeToggleButton.addEventListener('click', () => {
-                  if (body.classList.contains('light-theme')) {
-                      body.classList.remove('light-theme');
-                      body.classList.add('dark-theme');
-                      navbar.classList.remove('navbar-light');
-                      navbar.classList.add('navbar-dark');
-                      themeToggleButton.innerHTML = 'Light Mode';
-                  } else {
-                      body.classList.remove('dark-theme');
-                      body.classList.add('light-theme');
-                      navbar.classList.remove('navbar-dark');
-                      navbar.classList.add('navbar-light');
-                      themeToggleButton.innerHTML = 'Dark Mode';
-                  }
-              });
-      
-              // Keyboard Navigation
-              const navItems = document.querySelectorAll('.top-menu .nav-link');
-              let currentIndex = 0;
-      
-              // Function to set focus on the current nav item
-              function setFocus(index) {
-                  navItems[index].focus();
-                  navItems[index].style.border = "2px solid blue";
-              }
-      
-              // Remove focus style when the item loses focus
-              function removeFocus(index) {
-                  navItems[index].style.border = "none";
-              }
-      
-              setFocus(currentIndex);
-      
-              document.addEventListener('keydown', function(event) {
-                  if (event.key === "ArrowRight") {
-                      // Move to the next item if right arrow is pressed
-                      removeFocus(currentIndex);
-                      currentIndex = (currentIndex + 1) % navItems.length; 
-                      setFocus(currentIndex);
-                      event.preventDefault(); 
-                  } else if (event.key === "ArrowLeft") {
-                      removeFocus(currentIndex);
-                      currentIndex = (currentIndex - 1 + navItems.length) % navItems.length; 
-                      setFocus(currentIndex);
-                      event.preventDefault(); 
-                  }
-              });
-          </script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const themeToggleButton = document.getElementById('themeToggle');
+                const body = document.body;
+                const navbar = document.getElementById('navbar');
+        
+                // Check for stored theme in localStorage
+                const storedTheme = localStorage.getItem('theme');
+        
+                if (storedTheme) {
+                    // Apply stored theme
+                    body.classList.add(storedTheme);
+                    navbar.classList.add(storedTheme === 'dark-theme' ? 'navbar-dark' : 'navbar-light');
+                    themeToggleButton.innerHTML = storedTheme === 'dark-theme' ? 'Light Mode' : 'Dark Mode';
+                } else {
+                    // Default to light theme if no stored preference
+                    body.classList.add('light-theme');
+                    navbar.classList.add('navbar-light');
+                    themeToggleButton.innerHTML = 'Dark Mode';
+                }
+        
+                // Theme toggle button click event
+                themeToggleButton.addEventListener('click', () => {
+                    if (body.classList.contains('light-theme')) {
+                        // Switch to dark theme
+                        body.classList.replace('light-theme', 'dark-theme');
+                        navbar.classList.replace('navbar-light', 'navbar-dark');
+                        themeToggleButton.innerHTML = 'Light Mode';
+                        localStorage.setItem('theme', 'dark-theme');  // Save to localStorage
+                    } else {
+                        // Switch to light theme
+                        body.classList.replace('dark-theme', 'light-theme');
+                        navbar.classList.replace('navbar-dark', 'navbar-light');
+                        themeToggleButton.innerHTML = 'Dark Mode';
+                        localStorage.setItem('theme', 'light-theme'); // Save to localStorage
+                    }
+                });
+            });
+        </script>
+        
           <!-- Button changing theme -->
       </nav>
       
@@ -226,7 +213,7 @@
         <!-- <button onclick="applyFilter('bouquets')" class="filter-btn">Bouquets</button> -->
         <button onclick="applyFilter('combo')" class="filter-btn">Combo</button>
         <button onclick="applyFilter('roses')" class="filter-btn">Roses</button>
-        <button onclick="applyFilter('pions')" class="filter-btn">Pions</button>
+        <button onclick="applyFilter('peonies')" class="filter-btn">Peonies</button>
         <button onclick="applyFilter('hydrangeas')" class="filter-btn">Hydrangeas</button>
     </div>
 
@@ -249,18 +236,27 @@
                 category: 'combo'
             },
             {
+                name: 'Sunny Girl',
+                price: 14.99,
+                discount: '',
+                imgSrc: 'images/f10.jpg',
+                category: 'peonies'
+            },
+            {
                 name: 'Rose Romance',
                 price: 14.99,
                 discount: '-15%',
-                imgSrc: 'images/f2.jpg'
+                imgSrc: 'images/f2.jpg',
+                category:'combo'
             },
             {
-                name: 'Hydrangea Dreams',
+                name: 'Bright pink',
                 price: 13.99,
                 discount: '-5%',
                 imgSrc: 'images/f7.jpg',
                 category: 'hydrangeas'
             },
+        
             {
                 name: 'Spray Rose Elegance',
                 price: 10.99,
@@ -268,11 +264,26 @@
                 imgSrc: 'images/f3.jpg',
                 category: 'roses'
             },
+            { 
+                name: 'Light Peony', 
+                price: 13.99, 
+                imgSrc: 'images/f12.jpg', 
+                discount: '', 
+                category: 'peonies' 
+            }, 
             {
                 name: 'Ivory Dreams',
                 price: 9.99,
                 discount: '-20%',
-                imgSrc: 'images/IMG_2812.jpg'
+                imgSrc: 'images/IMG_2812.jpg',
+                category: 'roses'
+            },
+            {
+                name: 'Hydrangea Rose Harmony',
+                price: 12.99,
+                discount: '',
+                imgSrc: 'images/f11.jpg',
+                category: 'hydrangeas'
             },
             {
                 name: 'Romantic Blooms',
@@ -300,8 +311,9 @@
                 price: 12.99,
                 imgSrc: 'images/f9.jpg',
                 discount: '',
-                category: 'pions'
+                category: 'peonies'
             },
+            
         ];
     
         const boxContainer = document.querySelector('.box-container');
@@ -313,13 +325,10 @@ function applyFilter(filter) {
     const activeButton = Array.from(buttons).find(btn => btn.getAttribute('onclick').includes(filter));
     if (activeButton) activeButton.classList.add('active');
 
-    // Очистите контейнер с продуктами
     boxContainer.innerHTML = '';
 
-    // Фильтруйте продукты на основе выбранной категории
     const filteredProducts = filter === 'all' ? products : products.filter(product => product.category === filter);
 
-    // Отобразите отфильтрованные продукты
     filteredProducts.forEach(product => {
         const box = document.createElement('div');
         box.classList.add('box');
@@ -341,11 +350,9 @@ function applyFilter(filter) {
         boxContainer.appendChild(box);
     });
 
-    // Сохраняем выбранный фильтр в Local Storage
     localStorage.setItem('selectedFilter', filter);
 }
 
-// При загрузке страницы применяем сохранённый фильтр из Local Storage
 window.addEventListener('load', () => {
     const savedFilter = localStorage.getItem('selectedFilter') || 'all';
     applyFilter(savedFilter);
@@ -367,13 +374,13 @@ window.addEventListener('load', () => {
         <div class="box-container">
 
             <div class="box">
-                <h3>quick links</h3>
-                <a href="#">home</a>
-                <a href="#">about</a>
-                <a href="#">products</a>
-                <a href="#">review</a>
-                <a href="#">orders</a>
-                <a href="#">contact</a>
+              <h3>quick links</h3>
+              <a href="index.html">home</a>
+              <a href="about.html">about</a>
+              <a href="products.html">products</a>
+              <a href="review.html">review</a>
+              <a href="explore.html">explore</a>
+              <a href="contact.html">contact</a>
             </div>
 
             <div class="box">
