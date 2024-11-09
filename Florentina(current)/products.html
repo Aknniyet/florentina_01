@@ -210,7 +210,6 @@
 
       <div class="filter-bar">
         <button onclick="applyFilter('all')" class="filter-btn active">All</button>
-        <!-- <button onclick="applyFilter('bouquets')" class="filter-btn">Bouquets</button> -->
         <button onclick="applyFilter('combo')" class="filter-btn">Combo</button>
         <button onclick="applyFilter('roses')" class="filter-btn">Roses</button>
         <button onclick="applyFilter('peonies')" class="filter-btn">Peonies</button>
@@ -318,7 +317,7 @@
     
         const boxContainer = document.querySelector('.box-container');
 
-function applyFilter(filter) {
+    function applyFilter(filter) {
     const buttons = document.querySelectorAll('.filter-btn');
     buttons.forEach(btn => btn.classList.remove('active'));
 

@@ -208,12 +208,8 @@
         <h1 class="heading"><span>About</span> Us</h1>
         <div class="row">
           <div class="image-container">
-            <!-- Dropzone for dragging the image -->
-            <div id="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
-              <!-- Default image inside dropzone -->
-               <div class="placeholder">Drag and drop an image here</div>
-               <img id="flowerImage" src="" alt="Dropped Image">
-            </div>
+            <img src="images/about1.jpg">
+
           </div>
           <div class="aboutContent"> 
             <h3> why choose us?</h3> 
@@ -233,41 +229,12 @@
     </section> 
 
     <!-- Draggable images section -->
-  <div class="draggable-images">
+  <!-- <div class="draggable-images">
     <img id="image1" src="images/-10.jpg" draggable="true" ondragstart="drag(event)" alt="Flower 1">
     <img id="image2" src="images/-17.jpg" draggable="true" ondragstart="drag(event)" alt="Flower 2">
     <img id="image3" src="images/about1.jpg" draggable="true" ondragstart="drag(event)" alt="Flower 3">
-  </div>
+  </div> -->
 
-
-  <script>
-    // Allowing the image to be dragged over the dropzone
-    function allowDrop(event) {
-      event.preventDefault();
-    }
-
-    // Storing the image source in dataTransfer when dragging starts
-    function drag(event) {
-      event.dataTransfer.setData("src", event.target.src);
-    }
-
-    // Handling drop event in the dropzone
-    function drop(event) {
-      event.preventDefault();
-
-      // Retrieve the source of the dragged image
-      const imgSrc = event.dataTransfer.getData("src");
-
-      // Hide the placeholder text and show the image
-      const dropzoneImg = document.getElementById('flowerImage');
-      dropzoneImg.src = imgSrc;
-      dropzoneImg.style.display = 'block';
-
-      // Hide the placeholder text
-      const placeholder = document.querySelector('#dropzone .placeholder');
-      placeholder.style.display = 'none';
-    }
-  </script>
 
     <script>
     window.addEventListener('load', function() {
