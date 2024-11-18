@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Florentina</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+    <!-- Header Section -->
+    <nav class="navbar navbar-expand-lg navbar-light" id="navbar">
+        <div class="container-fluid">
+            <p class="navbrand">Florentina <span>.</span> </p>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 top-menu">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="products.html">Products</a></li>
+                    <li class="nav-item"><a class="nav-link" href="review.html">Review</a></li>
+                    <li class="nav-item"><a class="nav-link" href="explore.html">Explore</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    <li class="nav-item"><button id="themeToggle" class="btn btn-dark">Dark Mode</button></li>
+                </ul>
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown" style="position: relative;">
+                        <a 
+                            class="nav-link dropdown-toggle" 
+                            href="#" 
+                            id="dropdownButton" 
+                            role="button"
+                        >
+                            <i class="far fa-user"></i>
+                        </a>
+                        <ul id="userDropdown" class="dropdown-menu" style="display: none;">
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="openModal('loginModal')">Login</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#" onclick="openModal('signUpModal')">Sign Up</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span id="cartCount" class="badge">0</span>
+                        </a>
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div id="cart" class="cart hidden">
+        <h2>Your Cart</h2>
+        <ul id="cartItems"></ul>
+        <p id="cartTotal">Total: $0.00</p>
+        <button id="checkoutButton" class="btn btn-primary">Proceed to Checkout</button>
+    </div>
+    
+
+    <!-- Modals -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h3 class="text-center">Login</h3>
+            <input type="text" id="loginUsername" placeholder="Username" class="form-control mb-3">
+            <input type="password" id="loginPassword" placeholder="Password" class="form-control mb-3">
+            <button onclick="login()" class="btn btn-primary">Login</button>
+        </div>
+    </div>
+
+    <div id="signUpModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('signUpModal')">&times;</span>
+            <h3 class="text-center">Sign Up</h3>
+            <input type="text" id="signUpUsername" placeholder="Username" class="form-control mb-3">
+            <input type="password" id="signUpPassword" placeholder="Password" class="form-control mb-3">
+            <button onclick="signUp()" class="btn btn-primary">Sign Up</button>
+        </div>
+    </div>
+
+    <!-- About Section -->
+   <section class="about" id="about">
+    <h1 class="heading"><span>About</span> Us</h1>
+    <div class="row">
+      <div class="image-container">
+        <img src="images/about1.jpg">
+
+      </div>
+      <div class="aboutContent"> 
+        <h3> Why Choose Us?</h3> 
+        <p>Welcome to Florentina, your premier destination for exquisite flower bouquets.  
+            At Florentina, we are passionate about creating beautiful arrangements for every occasion.  
+            Whether you're celebrating a special event or just want to brighten someone's day,  
+            we have a bouquet to suit your needs.</p> 
+        <p>Our dedicated team of floral designers uses only the freshest flowers to craft stunning  
+            arrangements that capture the essence of elegance and joy. We pride ourselves on exceptional customer  
+            service and attention to detail, ensuring that each bouquet is a true work of art.</p> 
+        <p>Thank you for choosing Florentina. We look forward to serving you and helping you  
+            celebrate life's moments with the beauty of flowers!</p> 
+             <!-- Button to open the subscription popup --> 
+        <button id="openPopup" class="custom-btn">Subscribe</button> 
+        </div> 
+    </div> 
+</section> 
+
+<div id="popupForm" class="popup"> 
+    <div class="popup-content"> 
+        <span class="close">&times;</span> 
+        <h2>Subscribe to Our Newsletter</h2> 
+        <form> 
+          <label for="name">Name:</label> 
+            <input type="name" id="name" name="name" placeholder="Enter your name" required> 
+            <label for="email">Email:</label> 
+            <input type="email" id="email" name="email" placeholder="Enter your email" required> 
+            <button type="submit" class="btn btn-primary">Subscribe</button> 
+        </form> 
+    </div> 
+</div>
+
+
+    <!-- <div id="map">
+        <iframe width="425" height="350" src="https://www.openstreetmap.org/export/embed.html?bbox=71.41654551029207%2C51.09030919089255%2C71.41879856586458%2C51.091584476983215&amp;layer=mapnik" style="border: 1px solid black"></iframe><br/><small><a href="https://www.openstreetmap.org/#map=19/51.090947/71.417672">View Larger Map</a></small>
+    </div> -->
+
+    <!-- Map API -->
+    <h3>Our Flower Shop Location</h3>
+    <div id="map" style="height: 500px;"></div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        // Initialize the map and set the initial view (coordinates and zoom level)
+        var map = L.map('map').setView([51.084533, 71.443144], 16); // Coordinates of the map center
+
+        // Add OpenStreetMap tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Add a marker to a specific location (change the coordinates to your location)
+        var marker = L.marker([51.084533, 71.443144]).addTo(map);
+
+        // Add a popup to the marker with information
+        marker.bindPopup('<b>Flower Shop</b><br>Our Lovely Shop').openPopup();
+    </script>
+
+
+        <!-- icons section starts -->
+        <section class="icons-container">
+            <div class="icons">
+                <img src="images/icon1.png" alt="">
+                <div class="info">
+                    <h3> Free Delivery</h3>
+                    <span>On all orders</span>
+                </div>
+            </div>
+                
+            <div class="icons">
+                <img src="images/icon2.png" alt="">
+                <div class="info">
+                    <h3> Offer & Gifts</h3>
+                    <span>On all orders</span>
+                </div>
+            </div>
+    
+            <div class="icons">
+                <img src="images/icon3.png" alt="">
+                <div class="info">
+                    <h3> Secure Payment</h3>
+                    <span>Proteced by paypal</span>
+                </div>
+            </div>
+        </section>  
+        <!-- icons section ends -->
+
+   <!-- Footer Section -->
+
+   <section class="footer">
+    <div class="container">
+        <div class="row">
+            <!-- Column 1 -->
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a><br>
+                <a href="about.html">About</a><br>
+                <a href="products.html">Products</a><br>
+                <a href="review.html">Review</a><br>
+                <a href="explore.html">Explore</a><br>
+                <a href="contact.html">Contact</a>
+            </div>
+            <!-- Column 2 -->
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                <h3>Locations</h3>
+                <a>Astana, Kazakhstan</a>
+            </div>
+            <!-- Column 3 -->
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                <h3>Contact Info</h3>
+                <a>+7 777 777 77 77</a><br>
+                <a>@florentina_kz</a><br>
+                <a>florentina@gmail.com</a>
+                <img src="images/payment.png" alt="Payment Methods" class="img-fluid mt-3">
+            </div>
+        </div>
+        <div class="credit text-center mt-4">
+            Created by <span>Danel Kanbakova, Darina Kassymbek, Akniyet Muratbekkyzy</span>
+        </div>
+    </div>
+</section>
+
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
