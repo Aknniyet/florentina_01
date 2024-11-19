@@ -24,7 +24,7 @@ The project is organized with HTML, CSS, and JavaScript files for better readabi
 - **JavaScript** controls interactive features, such as animations and real-time time updates.
 
 ## How to Access the Project
-1. Copy the site link: [Florentina Flower Shop](https://florentina-01-jdlp.vercel.app/).
+1. Copy the site link: [Florentina Flower Shop](https://florentina-01-xf8m.vercel.app/).
 2. Open the link in your browser to explore the site and its full functionality.
 
 ## Technologies Used
