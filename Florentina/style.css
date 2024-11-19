@@ -238,6 +238,7 @@ body.dark-theme {
     z-index: 1000;
 }
 
+
 #cartItems {
     list-style-type: none;
     padding: 0;
@@ -870,7 +871,7 @@ body.dark-theme .about .row .aboutContent h3 {
 
 .products-section .box-container .box .image .icons a {
     height: 3rem;
-    width: 3rem; 
+    width: 13rem; 
     line-height: 3rem; 
     font-size: 2rem;
     background: var(--pink);
@@ -883,6 +884,7 @@ body.dark-theme .about .row .aboutContent h3 {
     justify-content: center; 
     transition: background 0.3s ease;
 }
+
 
 .products-section .box-container .box .image .icons a:hover {
     background: var(--dark-bg);

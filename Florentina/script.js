@@ -393,7 +393,7 @@ function applyFilter(filter) {
                 <div class="image">
                     <img src="${product.imgSrc}" alt="${product.name}" onerror="this.src='images/default.jpg';">
                     <div class="icons">
-                        <a href="#" class="products-cart-btn" onclick="addToCart(${product.id})"><i class="fas fa-shopping-cart"></i></a>
+                        <a href="#" class="cart-btn">Add to cart</a>
                     </div>
                 </div>
                 <div class="content">
